@@ -1,0 +1,175 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+@theme {
+  --font-sans: "VT323", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Press Start 2P", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Static Noise Overlay */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+    linear-gradient(90deg, rgba(255, 0, 255, 0.05), rgba(0, 255, 255, 0.05));
+  background-size: 100% 4px, 4px 100%;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 49;
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glitch Text Layer */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 86px, 0); }
+  5% { clip: rect(32px, 9999px, 13px, 0); transform: translate(-2px, 4px); }
+  10% { clip: rect(84px, 9999px, 92px, 0); }
+  15% { clip: rect(4px, 9999px, 44px, 0); transform: translate(4px, -2px); }
+  20% { clip: rect(93px, 9999px, 44px, 0); }
+  25% { clip: rect(14px, 9999px, 18px, 0); transform: translate(-4px, 2px); }
+  30% { clip: rect(84px, 9999px, 92px, 0); }
+  35% { clip: rect(74px, 9999px, 54px, 0); transform: translate(2px, -4px); }
+  40% { clip: rect(24px, 9999px, 86px, 0); }
+  45% { clip: rect(2px, 9999px, 43px, 0); transform: translate(-2px, 4px); }
+  50% { clip: rect(64px, 9999px, 62px, 0); }
+  55% { clip: rect(54px, 9999px, 12px, 0); transform: translate(4px, -2px); }
+  60% { clip: rect(84px, 9999px, 82px, 0); }
+  65% { clip: rect(14px, 9999px, 32px, 0); transform: translate(-4px, 4px); }
+  70% { clip: rect(64px, 9999px, 42px, 0); }
+  75% { clip: rect(24px, 9999px, 52px, 0); transform: translate(2px, -2px); }
+  80% { clip: rect(44px, 9999px, 62px, 0); }
+  85% { clip: rect(94px, 9999px, 72px, 0); transform: translate(-2px, 2px); }
+  90% { clip: rect(34px, 9999px, 82px, 0); }
+  95% { clip: rect(14px, 9999px, 92px, 0); transform: translate(2px, -4px); }
+  100% { clip: rect(64px, 9999px, 52px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  5% { clip: rect(52px, 9999px, 74px, 0); transform: translate(-4px, -2px); }
+  10% { clip: rect(79px, 9999px, 85px, 0); }
+  15% { clip: rect(75px, 9999px, 5px, 0); transform: translate(4px, 2px); }
+  20% { clip: rect(67px, 9999px, 61px, 0); }
+  25% { clip: rect(14px, 9999px, 79px, 0); transform: translate(-2px, -4px); }
+  30% { clip: rect(1px, 9999px, 66px, 0); }
+  35% { clip: rect(86px, 9999px, 30px, 0); transform: translate(2px, 4px); }
+  40% { clip: rect(77px, 9999px, 13px, 0); }
+  45% { clip: rect(59px, 9999px, 93px, 0); transform: translate(-4px, -2px); }
+  50% { clip: rect(22px, 9999px, 20px, 0); }
+  55% { clip: rect(68px, 9999px, 4px, 0); transform: translate(4px, 2px); }
+  60% { clip: rect(4px, 9999px, 10px, 0); }
+  65% { clip: rect(16px, 9999px, 48px, 0); transform: translate(-4px, -4px); }
+  70% { clip: rect(100px, 9999px, 97px, 0); }
+  75% { clip: rect(21px, 9999px, 9px, 0); transform: translate(4px, 2px); }
+  80% { clip: rect(98px, 9999px, 31px, 0); }
+  85% { clip: rect(19px, 9999px, 76px, 0); transform: translate(-2px, -2px); }
+  90% { clip: rect(86px, 9999px, 38px, 0); }
+  95% { clip: rect(61px, 9999px, 64px, 0); transform: translate(2px, 4px); }
+  100% { clip: rect(9px, 9999px, 42px, 0); }
+}
+
+/* Jitter Background */
+.glitch-block {
+  animation: jitter 3s infinite;
+  position: relative;
+}
+
+@keyframes jitter {
+  0% { transform: translate(0,0) }
+  1% { transform: translate(2px, -1px) }
+  2% { transform: translate(-2px, 1px) }
+  3% { transform: translate(0,0) }
+  98% { transform: translate(0,0) }
+  99% { transform: translate(-1px, 2px) }
+  100% { transform: translate(0,0) }
+}
+
+.glitch-border {
+  border: 4px solid #00ffff;
+  box-shadow: 6px 6px 0px #ff00ff;
+  position: relative;
+}
+
+.glitch-border::after {
+  content: "";
+  position: absolute;
+  top: -4px; right: -4px; bottom: -4px; left: -4px;
+  border: 4px solid #ff00ff;
+  clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%, 0 30%, 100% 30%, 100% 40%, 0 40%);
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  pointer-events: none;
+}
+
+.btn-glitch {
+  background: #000;
+  border: 2px solid #00ffff;
+  color: #00ffff;
+  text-transform: uppercase;
+  font-family: 'Press Start 2P', monospace;
+  box-shadow: 2px 2px 0px #ff00ff;
+  transition: all 0.1s;
+}
+
+.btn-glitch:hover {
+  background: #00ffff;
+  color: #000;
+  box-shadow: -2px -2px 0px #ff00ff;
+}
+
+.btn-glitch:active {
+  background: #ff00ff;
+  border-color: #ff00ff;
+  color: #000;
+  box-shadow: 0px 0px 0px #00ffff;
+  transform: translate(2px, 2px);
+}
+
